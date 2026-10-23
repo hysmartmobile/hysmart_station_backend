@@ -1,0 +1,27 @@
+{
+  "name": "hysmart-station-api",
+  "version": "2.25.9",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "notifications:run": "node src/workers/notification-delivery.js",
+    "anomalies:escalate": "node src/workers/anomaly-escalation.js",
+    "test": "vitest run && node --test test/*.node.mjs",
+    "check": "node --check src/server.js && node --check src/app.js && node --check src/config/env.js && node --check src/routes/health.js && node --check src/routes/me.js && node --check src/routes/companies.js && node --check src/routes/stations.js && node --check src/routes/team.js && node --check src/routes/publicInvitations.js && node --check src/routes/attendance.js && node --check src/routes/operations.js && node --check src/routes/controls.js && node --check src/routes/governance.js && node --check src/routes/billing.js && node --check src/routes/alerts.js && node --check src/routes/notifications.js && node --check src/routes/messages.js && node --check src/routes/payroll.js && node --check src/routes/accountability.js && node --check src/routes/advancedOperations.js && node --check src/routes/support.js && node --check src/workers/notification-delivery.js && node --check src/workers/anomaly-escalation.js && node --check src/middleware/subscriptionAccess.js && node --check src/services/supabase.js && node --check src/routes/creatorAdmin.js && node --check src/services/creatorAccess.js && node --check src/middleware/auth.js && node --check src/middleware/errors.js && node --check src/middleware/requestContext.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0",
+    "vitest": "^2.1.8"
+  }
+}

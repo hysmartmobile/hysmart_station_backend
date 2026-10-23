@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const root=new URL('../',import.meta.url);
+const operations=fs.readFileSync(new URL('src/routes/operations.js',root),'utf8');
+const migration=fs.readFileSync(new URL('supabase/migrations/0015_unit_aware_inventory.sql',root),'utf8');
+const inventory=fs.readFileSync(new URL('../hysmart station_frontend/src/pages/InventoryPage.jsx',root),'utf8');
+test('fuel product schema supports explicit litre and kg units',()=>{assert.match(operations,/unitOfMeasure:z\.enum\(\['litre','kg'\]\)/);assert.match(operations,/default_price_per_unit:price/)});
+test('tank and delivery records persist matching unit-aware quantities',()=>{assert.match(operations,/capacity_units:capacity/);assert.match(operations,/quantity_units:quantity/);assert.match(migration,/FUEL_UNIT_MISMATCH/)});
+test('kilogram products are not sent through litre meter or stock-check workflows',()=>{assert.match(operations,/FUEL_UNIT_MISMATCH_USE_KG_WORKFLOW/);assert.match(migration,/validate_litre_meter_reading_unit/);assert.match(migration,/validate_litre_tank_stock_check_unit/)});
+test('inventory UI labels quantity and price by selected unit',()=>{assert.match(inventory,/Default price per \$\{productUnit\}/);assert.match(inventory,/Delivered quantity \(\$\{deliveryUnit\}\)/);assert.match(inventory,/unit_of_measure/)});

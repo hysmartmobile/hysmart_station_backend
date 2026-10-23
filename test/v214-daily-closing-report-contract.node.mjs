@@ -1,0 +1,6 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+const root=new URL('../',import.meta.url);const read=path=>readFile(new URL(path,root),'utf8');
+test('v2.14 daily closing report is company-leader-only, date-scoped and reports outstanding shifts without auto-closing them',async()=>{const route=await read('src/routes/companies.js');assert.match(route,/daily-closing-report/);assert.match(route,/companyLeadership\(req\)/);assert.match(route,/Only an active company owner or director can view the consolidated daily closing report/);assert.match(route,/station_cash_shifts/);assert.match(route,/station_shift_reconciliations/);assert.match(route,/closed_unreconciled/);assert.match(route,/does not automatically close shifts/);});
+test('v2.14 daily closing report is shown only within the company leadership dashboard and provides CSV export',async()=>{const overview=await read('../hysmart station_frontend/src/pages/OverviewPage.jsx');const page=await read('../hysmart station_frontend/src/pages/CompanyDailyClosing.jsx');assert.match(overview,/owner \? <>/);assert.match(overview,/CompanyDailyClosing/);assert.match(page,/companies\/daily-closing-report/);assert.match(page,/Export CSV/);assert.match(page,/Awaiting reconciliation/);});

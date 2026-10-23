@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const migration = readFileSync(new URL('../supabase/migrations/0010_trials_subscriptions_branch_gate.sql', import.meta.url), 'utf8');
+const billing = readFileSync(new URL('../src/routes/billing.js', import.meta.url), 'utf8');
+const stations = readFileSync(new URL('../src/routes/stations.js', import.meta.url), 'utf8');
+const gate = readFileSync(new URL('../src/middleware/subscriptionAccess.js', import.meta.url), 'utf8');
+test('seven-day trial is anchored to account creation and paid subscription data is additive', () => { assert.match(migration, /auth\.users/); assert.match(migration, /interval '7 days'/); assert.match(migration, /company_subscriptions/); assert.match(migration, /company_payment_attempts/); });
+test('branch creation is guarded atomically by a database entitlement RPC', () => { assert.match(migration, /create_station_for_owner/); assert.match(migration, /SUBSCRIPTION_REQUIRED/); assert.match(migration, /BRANCH_LIMIT_REACHED/); assert.match(stations, /create_station_for_owner/); });
+test('billing validates provider transactions and signed webhooks before activating plans', () => { assert.match(billing, /transaction\??\.status !== 'success'/); assert.match(billing, /x-paystack-signature/); assert.match(billing, /timingSafeEqual/); assert.match(billing, /company_payment_attempts/); });
+test('expired trial blocks operational API access while leaving billing reachable', () => { assert.match(gate, /trial_ends_at/); assert.match(gate, /TRIAL_EXPIRED/); });
