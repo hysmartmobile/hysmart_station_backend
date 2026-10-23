@@ -1,0 +1,134 @@
+
+```gitignore
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+.pnp/
+.pnp.js
+
+# ==========================================
+# Environment variables and secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Private keys and certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Service account credentials
+service-account*.json
+*-service-account*.json
+credentials.json
+secrets/
+.secrets/
+
+# ==========================================
+# Build outputs
+# ==========================================
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+coverage/
+
+# ==========================================
+# Logs and debugging
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# Testing
+# ==========================================
+.nyc_output/
+playwright-report/
+test-results/
+cypress/videos/
+cypress/screenshots/
+
+# ==========================================
+# Local environment and caches
+# ==========================================
+.cache/
+.parcel-cache/
+.vite/
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# ==========================================
+# IDEs and editors
+# ==========================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ==========================================
+# Operating system files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Desktop.ini
+
+# ==========================================
+# Temporary files
+# ==========================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# ==========================================
+# Local databases and backups
+# ==========================================
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.backup
+
+# ==========================================
+# Supabase local development
+# ==========================================
+supabase/.temp/
+supabase/.branches/
+
+# ==========================================
+# Deployment and hosting
+# ==========================================
+.vercel/
+.netlify/
+.firebase/
+.serverless/
+
+# ==========================================
+# Generated documentation and reports
+# ==========================================
+*.generated.*
+```
