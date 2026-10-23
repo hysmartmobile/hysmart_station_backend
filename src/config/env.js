@@ -11,7 +11,7 @@ export function getConfig(env = process.env) {
   const config = {
     port: Number(env.PORT || 3001),
     nodeEnv: env.NODE_ENV || 'development',
-    version: env.APP_VERSION || '2.25.8',
+    version: env.APP_VERSION || '2.25.9',
     frontendOrigins: parseOrigins(env.FRONTEND_ORIGIN),
     frontendOrigin: parseOrigins(env.FRONTEND_ORIGIN)[0] || 'http://localhost:5173',
     supabaseUrl: env.SUPABASE_URL || '',

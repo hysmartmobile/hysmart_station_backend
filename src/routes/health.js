@@ -6,7 +6,7 @@ export default function healthRoutes(config, supabase) {
     data: {
       status: 'ok',
       service: 'hysmart-station-api',
-      version: config.version || '2.25.8',
+      version: config.version || '2.25.9',
       environment: config.nodeEnv,
       checks: { api: 'ok', supabaseConfigured: Boolean(supabase) },
     },

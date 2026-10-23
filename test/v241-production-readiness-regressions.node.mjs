@@ -21,8 +21,8 @@ test('v2.24.1 validates and normalizes statement cursor timestamps before PostgR
   assert.doesNotMatch(route, /new Date\(last\.date\)\.toISOString\(\)/);
 });
 test('v2.24.1 runtime and health version fallbacks are aligned', () => {
-  assert.match(read('src/config/env.js'), /version: env\.APP_VERSION \|\| '2\.25\.8'/);
-  assert.match(read('src/routes/health.js'), /config\.version \|\| '2\.25\.8'/);
+  assert.match(read('src/config/env.js'), /version: env\.APP_VERSION \|\| '2\.25\.9'/);
+  assert.match(read('src/routes/health.js'), /config\.version \|\| '2\.25\.9'/);
 });
 
 test('v2.24.1 repairs invitation RPC back to email-bound invites after migration 0042', () => {
