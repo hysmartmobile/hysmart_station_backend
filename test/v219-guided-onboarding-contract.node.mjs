@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../hysmart station_frontend/src');
+const app = await readFile(path.join(root, 'App.jsx'), 'utf8');
+const setup = await readFile(path.join(root, 'pages/CompanySetupPage.jsx'), 'utf8');
+const guide = await readFile(path.join(root, 'pages/GettingStartedPage.jsx'), 'utf8');
+const styles = await readFile(path.join(root, 'styles.css'), 'utf8');
+test('company setup routes new owners into guided onboarding', () => { assert.match(setup, /nav\('\/getting-started'/); assert.match(app, /path="\/getting-started" element={<GettingStartedPage \/>}/); });
+test('guided onboarding links to existing branch, equipment, team, governance and attendance pages', () => { for (const route of ['/stations','/controls','/team','/governance','/attendance']) assert.ok(guide.includes(`to: '${route}'`), `missing ${route}`); });
+test('onboarding communicates branch permissions and does not falsely auto-complete steps', () => { assert.match(guide, /authorised to access/); assert.match(guide, /does not mark steps complete automatically/); });
+test('onboarding photo has layered background treatment and responsive layout', () => { assert.match(styles, /getting-started-hero-photo/); assert.match(styles, /@media\(max-width:760px\)/); });

@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const migration=readFileSync(new URL('../supabase/migrations/0008_disputes_and_collection_reversals.sql',import.meta.url),'utf8');
+const route=readFileSync(new URL('../src/routes/governance.js',import.meta.url),'utf8');
+const app=readFileSync(new URL('../src/app.js',import.meta.url),'utf8');
+const ui=readFileSync(new URL('../../hysmart station_frontend/src/pages/GovernancePage.jsx',import.meta.url),'utf8');
+test('discrepancy cases store evidence and resolution audit fields',()=>{assert.match(migration,/create table if not exists public\.station_disputes/i);assert.match(migration,/station_dispute_events/i);assert.match(migration,/evidence_reference text/i);assert.match(migration,/resolved_by uuid/i)});
+test('collection reversals are append-only records and independent approvals',()=>{assert.match(migration,/create table if not exists public\.sales_collection_reversals/i);assert.match(migration,/SELF_APPROVAL_NOT_ALLOWED/);assert.match(migration,/REVERSAL_EXCEEDS_REMAINING_AMOUNT/)});
+test('reconciliation deducts approved reversals from net collection totals',()=>{assert.match(migration,/c\.amount-coalesce\(rv\.amount,0\)/);assert.match(migration,/public\.sales_collection_reversals/)});
+test('API enforces owner approval and exposes governance endpoints',()=>{assert.match(route,/OWNER_APPROVAL_REQUIRED/);assert.match(route,/collection-reversal-requests/);assert.match(route,/disputes/);assert.match(app,/governanceRoutes/)});
+test('frontend provides case and reversal workflow',()=>{assert.match(ui,/Open discrepancy case/);assert.match(ui,/Submit reversal request/);assert.match(ui,/Approve/)});
