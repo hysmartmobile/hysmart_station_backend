@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 const root=new URL('../',import.meta.url);
 const migration=readFileSync(new URL('supabase/migrations/0016_complete_kg_sales_workflow.sql',root),'utf8');
 const routes=readFileSync(new URL('src/routes/operations.js',root),'utf8');
-const sales=readFileSync(new URL('../../hysmart station_frontend/src/pages/SalesPage.jsx',import.meta.url),'utf8');
+const sales=readFileSync(new URL('../../station_pwa/src/pages/SalesPage.jsx',import.meta.url),'utf8');
 test('kg sales ledger stores kg quantities separately with generated sales and amount',()=>{
  assert.match(migration,/create table if not exists public\.kg_nozzle_meter_readings/);
  assert.match(migration,/kg_sold numeric\(16,3\) generated always as \(current_meter_kg-previous_meter_kg\)/);

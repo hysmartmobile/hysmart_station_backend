@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 const root=join(dirname(fileURLToPath(import.meta.url)),'..');
 const sql=readFileSync(join(root,'supabase/migrations/0025_mandatory_meter_approval.sql'),'utf8');
 const routes=readFileSync(join(root,'src/routes/operations.js'),'utf8');
-const ui=readFileSync(join(root,'..','hysmart station_frontend/src/pages/ControlsPage.jsx'),'utf8');
+const ui=readFileSync(join(root,'..','station_pwa/src/pages/ControlsPage.jsx'),'utf8');
 test('v2.9.0 stores review status for litre and kg meter readings and advances baselines only on approval',()=>{
  assert.match(sql,/nozzle_meter_readings add column if not exists status text not null default 'approved'/);
  assert.match(sql,/kg_nozzle_meter_readings add column if not exists status text not null default 'approved'/);

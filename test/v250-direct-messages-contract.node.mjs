@@ -19,9 +19,9 @@ test('v2.5.0 checks recipient membership and branch scope on the server', () => 
   assert.match(route, /Only a company owner, director, or assigned branch manager/);
 });
 test('v2.5.0 exposes staff messaging in the frontend', () => {
-  const app = read('../../hysmart station_frontend/src/App.jsx');
-  const layout = read('../../hysmart station_frontend/src/layouts/AppLayout.jsx');
-  const page = read('../../hysmart station_frontend/src/pages/MessagesPage.jsx');
+  const app = read('../../station_pwa/src/App.jsx');
+  const layout = read('../../station_pwa/src/layouts/AppLayout.jsx');
+  const page = read('../../station_pwa/src/pages/MessagesPage.jsx');
   assert.match(app, /path="messages" element=\{<MessagesPage \/>\}/);
   assert.match(layout, /Staff messages/);
   assert.match(page, /\/messages/);

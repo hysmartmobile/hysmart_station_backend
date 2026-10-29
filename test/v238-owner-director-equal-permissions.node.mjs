@@ -19,6 +19,6 @@ test('v2.23.8 migration grants both company roles the same branch and manager-in
  assert.match(sql,/create or replace function public\.create_station_invitation/);
 });
 test('v2.23.8 frontend exposes branch creation to owner and director roles',async()=>{
- const page=await read('../hysmart station_frontend/src/pages/StationsPage.jsx');
+ const page=await read('../station_pwa/src/pages/StationsPage.jsx');
  assert.match(page,/setCanCreateBranch\(!!data\.companies\?\.some\(c => \['COMPANY_OWNER','COMPANY_ADMIN'\]\.includes\(c\.role\)\)\)/);
 });

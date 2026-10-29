@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../hysmart station_frontend/src');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../station_pwa/src');
 const app = await readFile(path.join(root, 'App.jsx'), 'utf8');
 const setup = await readFile(path.join(root, 'pages/CompanySetupPage.jsx'), 'utf8');
 const guide = await readFile(path.join(root, 'pages/GettingStartedPage.jsx'), 'utf8');

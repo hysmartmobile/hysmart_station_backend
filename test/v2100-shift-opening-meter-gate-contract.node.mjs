@@ -7,7 +7,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const migration=fs.readFileSync(path.join(root,'supabase/migrations/0026_shift_opening_meter_gate.sql'),'utf8');
 const routes=fs.readFileSync(path.join(root,'src/routes/operations.js'),'utf8');
 const controls=fs.readFileSync(path.join(root,'src/routes/controls.js'),'utf8');
-const ui=fs.readFileSync(path.resolve(root,'../hysmart station_frontend/src/pages/ShiftOpeningWorkflow.jsx'),'utf8');
+const ui=fs.readFileSync(path.resolve(root,'../station_pwa/src/pages/ShiftOpeningWorkflow.jsx'),'utf8');
 test('shift opening meters persist with separate approval and audit fields',()=>{
  for(const token of ['shift_meter_openings','cash_shift_id','nozzle_id','unit_of_measure','opening_meter','submitted_by','reviewed_by','reviewed_at','review_note','submission_notes']) assert.ok(migration.includes(token),`missing ${token}`);
  assert.match(migration,/status in \('pending','approved','rejected'\)/);

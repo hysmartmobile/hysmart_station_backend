@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
-const layout = await readFile(new URL('../../hysmart station_frontend/src/layouts/AppLayout.jsx', import.meta.url), 'utf8');
-const app = await readFile(new URL('../../hysmart station_frontend/src/App.jsx', import.meta.url), 'utf8');
-const guide = await readFile(new URL('../../hysmart station_frontend/src/pages/UserGuidePage.jsx', import.meta.url), 'utf8');
+const layout = await readFile(new URL('../../station_pwa/src/layouts/AppLayout.jsx', import.meta.url), 'utf8');
+const app = await readFile(new URL('../../station_pwa/src/App.jsx', import.meta.url), 'utf8');
+const guide = await readFile(new URL('../../station_pwa/src/pages/UserGuidePage.jsx', import.meta.url), 'utf8');
 
 test('sidebar provides the correct named manual and matching route for each effective role', () => {
   assert.match(layout, /\['\/user-guide\/owner', 'Owner user guide', BookOpen\]/);

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 const route = await readFile(new URL('../src/routes/alerts.js', import.meta.url), 'utf8');
-const page = await readFile(new URL('../../hysmart station_frontend/src/pages/AlertsPage.jsx', import.meta.url), 'utf8');
+const page = await readFile(new URL('../../station_pwa/src/pages/AlertsPage.jsx', import.meta.url), 'utf8');
 test('notification settings have read and write API endpoints', () => {
   assert.match(route, /r\.get\('\/notification-preferences'/);
   assert.match(route, /r\.put\('\/notification-preferences'/);

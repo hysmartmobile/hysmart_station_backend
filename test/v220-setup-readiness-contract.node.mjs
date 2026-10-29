@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const page = readFileSync(resolve(root, 'hysmart station_frontend/src/pages/GettingStartedPage.jsx'), 'utf8');
+const page = readFileSync(resolve(root, 'station_pwa/src/pages/GettingStartedPage.jsx'), 'utf8');
 const version = readFileSync(resolve(root, 'VERSION'), 'utf8').trim();
 test('v2.20 setup assistant checks branches through authenticated API', () => {
  assert.equal(version, '2.25.9');

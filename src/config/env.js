@@ -8,12 +8,16 @@ function parseOrigins(value) {
 }
 
 export function getConfig(env = process.env) {
+  // Accept the historical environment variable names used by existing deployments.
+  // FRONTEND_ORIGIN takes precedence; FRONTEND_URL and CORS_ORIGIN are fallbacks.
+  const originsValue = env.FRONTEND_ORIGIN || env.FRONTEND_URL || env.CORS_ORIGIN || 'http://localhost:5173';
+  const frontendOrigins = parseOrigins(originsValue);
   const config = {
     port: Number(env.PORT || 3001),
     nodeEnv: env.NODE_ENV || 'development',
     version: env.APP_VERSION || '2.25.9',
-    frontendOrigins: parseOrigins(env.FRONTEND_ORIGIN),
-    frontendOrigin: parseOrigins(env.FRONTEND_ORIGIN)[0] || 'http://localhost:5173',
+    frontendOrigins,
+    frontendOrigin: frontendOrigins[0] || 'http://localhost:5173',
     supabaseUrl: env.SUPABASE_URL || '',
     supabaseServiceRoleKey: env.SUPABASE_SERVICE_ROLE_KEY || '',
     paystackSecretKey: env.PAYSTACK_SECRET_KEY || '',
@@ -21,6 +25,13 @@ export function getConfig(env = process.env) {
   };
   if (!Number.isInteger(config.port) || config.port < 1 || config.port > 65535) {
     throw new Error('PORT must be an integer between 1 and 65535.');
+  }
+  const looksLikePlaceholder = (value) => /YOUR_|REPLACE_WITH|CHANGE_ME|PLACEHOLDER/i.test(String(value || ''));
+  if (config.supabaseUrl && looksLikePlaceholder(config.supabaseUrl)) {
+    throw new Error('SUPABASE_URL is still a placeholder. Set the real Supabase project URL in the backend .env file.');
+  }
+  if (config.supabaseServiceRoleKey && looksLikePlaceholder(config.supabaseServiceRoleKey)) {
+    throw new Error('SUPABASE_SERVICE_ROLE_KEY is still a placeholder. Set a valid server-only service-role key in the backend .env file.');
   }
   if (config.nodeEnv === 'production') {
     if (!config.supabaseUrl || !config.supabaseServiceRoleKey) {

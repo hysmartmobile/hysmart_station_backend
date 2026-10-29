@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const migration=fs.readFileSync(path.join(root,'supabase/migrations/0028_complete_shift_financial_reconciliation.sql'),'utf8');
 const routes=fs.readFileSync(path.join(root,'src/routes/operations.js'),'utf8');
-const controls=fs.readFileSync(path.resolve(root,'../hysmart station_frontend/src/pages/ControlsPage.jsx'),'utf8');
+const controls=fs.readFileSync(path.resolve(root,'../station_pwa/src/pages/ControlsPage.jsx'),'utf8');
 test('shift reconciliation includes approved litre and kg sales in expected revenue',()=>{
  assert.match(migration,/nozzle_meter_readings where cash_shift_id=p_shift_id and status='approved'/);
  assert.match(migration,/kg_nozzle_meter_readings where cash_shift_id=p_shift_id and status='approved'/);

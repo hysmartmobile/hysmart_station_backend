@@ -4,13 +4,13 @@ import { readFile } from 'node:fs/promises';
 
 const migration = await readFile(new URL('../supabase/migrations/0032_approved_meter_company_dashboard.sql', import.meta.url), 'utf8');
 const reconciliationMigration = await readFile(new URL('../supabase/migrations/0033_owner_reconciliation_reporting.sql', import.meta.url), 'utf8');
-const sales = await readFile(new URL('../../hysmart station_frontend/src/pages/SalesPage.jsx', import.meta.url), 'utf8');
-const overview = await readFile(new URL('../../hysmart station_frontend/src/pages/OverviewPage.jsx', import.meta.url), 'utf8');
-const api = await readFile(new URL('../../hysmart station_frontend/src/lib/api.js', import.meta.url), 'utf8');
-const auth = await readFile(new URL('../../hysmart station_frontend/src/features/auth/AuthContext.jsx', import.meta.url), 'utf8');
-const layoutSource = await readFile(new URL('../../hysmart station_frontend/src/layouts/AppLayout.jsx', import.meta.url), 'utf8');
-const layout = await readFile(new URL('../../hysmart station_frontend/src/layouts/AppLayout.jsx', import.meta.url), 'utf8');
-const app = await readFile(new URL('../../hysmart station_frontend/src/App.jsx', import.meta.url), 'utf8');
+const sales = await readFile(new URL('../../station_pwa/src/pages/SalesPage.jsx', import.meta.url), 'utf8');
+const overview = await readFile(new URL('../../station_pwa/src/pages/OverviewPage.jsx', import.meta.url), 'utf8');
+const api = await readFile(new URL('../../station_pwa/src/lib/api.js', import.meta.url), 'utf8');
+const auth = await readFile(new URL('../../station_pwa/src/features/auth/AuthContext.jsx', import.meta.url), 'utf8');
+const layoutSource = await readFile(new URL('../../station_pwa/src/layouts/AppLayout.jsx', import.meta.url), 'utf8');
+const layout = await readFile(new URL('../../station_pwa/src/layouts/AppLayout.jsx', import.meta.url), 'utf8');
+const app = await readFile(new URL('../../station_pwa/src/App.jsx', import.meta.url), 'utf8');
 
 test('company dashboard only includes approved litre and kg meter readings in sales totals', () => {
   assert.match(migration, /nmr\.status='approved'/);

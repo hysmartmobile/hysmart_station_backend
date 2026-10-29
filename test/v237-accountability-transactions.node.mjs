@@ -8,8 +8,8 @@ const read = p => readFileSync(join(root, p), 'utf8');
 const migration = read('supabase/migrations/0041_accountability_transactions.sql');
 const route = read('src/routes/accountability.js');
 const app = read('src/app.js');
-const page = read('../hysmart station_frontend/src/pages/AccountabilityPage.jsx');
-const layout = read('../hysmart station_frontend/src/layouts/AppLayout.jsx');
+const page = read('../station_pwa/src/pages/AccountabilityPage.jsx');
+const layout = read('../station_pwa/src/layouts/AppLayout.jsx');
 
 test('v2.23.7 creates a server-mediated immutable transaction ledger with response and dispute history', () => {
   assert.match(migration, /create table if not exists public\.branch_accountability_transactions/);

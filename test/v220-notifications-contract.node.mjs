@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 const route = await readFile(new URL('../src/routes/alerts.js', import.meta.url), 'utf8');
 const migration = await readFile(new URL('../supabase/migrations/0018_management_alert_preferences.sql', import.meta.url), 'utf8');
 const delivery = await readFile(new URL('../supabase/migrations/0019_notification_delivery_foundation.sql', import.meta.url), 'utf8');
-const page = await readFile(new URL('../../hysmart station_frontend/src/pages/AlertsPage.jsx', import.meta.url), 'utf8');
+const page = await readFile(new URL('../../station_pwa/src/pages/AlertsPage.jsx', import.meta.url), 'utf8');
 test('alert preferences persist and validate threshold ranges', () => { assert.match(route, /r\.get\('\/preferences'/); assert.match(route, /r\.put\('\/preferences'/); assert.match(route, /z\.number\(\)\.int\(\)\.min\(1\)\.max\(72\)/); assert.match(migration, /management_alert_preferences/); assert.match(migration, /unique nulls not distinct/); });
 test('company and branch preference scope is permission checked', () => { assert.match(route, /resolveScope\(req, stationId\)/); assert.match(route, /Only a company owner or director can change company-wide alert preferences/); assert.match(route, /Company owner or director access is required for company-wide alert preferences/); });
 test('daily summary does not falsely claim scheduled delivery', () => { assert.match(route, /r\.get\('\/daily-summary'/); assert.match(route, /delivery: 'in_app_only'/); assert.match(route, /Scheduled email summaries require the configured Resend worker and scheduler; SMS and push delivery are not enabled/); });

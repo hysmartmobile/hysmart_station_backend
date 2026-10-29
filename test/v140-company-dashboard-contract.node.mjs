@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 
 const migration = await readFile(new URL('../supabase/migrations/0012_owner_company_dashboard.sql', import.meta.url), 'utf8');
 const route = await readFile(new URL('../src/routes/companies.js', import.meta.url), 'utf8');
-const overview = await readFile(new URL('../../hysmart station_frontend/src/pages/OverviewPage.jsx', import.meta.url), 'utf8');
+const overview = await readFile(new URL('../../station_pwa/src/pages/OverviewPage.jsx', import.meta.url), 'utf8');
 
 test('company dashboard aggregation is owner-gated and server calculated', () => {
   assert.match(migration, /role\s*=\s*'COMPANY_OWNER'/);

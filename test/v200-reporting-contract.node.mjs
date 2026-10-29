@@ -31,7 +31,7 @@ test('v1.9 audit export supports the same selected date range and bounded result
  assert.match(src, /inRange\(eq,\s*'created_at',\s*from,\s*to\)/);
 });
 test('v1.9 report screen offers date filters and spreadsheet-safe CSV exports', async () => {
- const page = await read('../hysmart station_frontend/src/pages/ReportsPage.jsx');
+ const page = await read('../station_pwa/src/pages/ReportsPage.jsx');
  assert.match(page, /type="date"/);
  assert.match(page, /companies\/financial-report/);
  assert.match(page, /hysmart-financial-report/);
@@ -40,8 +40,8 @@ test('v1.9 report screen offers date filters and spreadsheet-safe CSV exports', 
  assert.match(page, /Litres and kilograms are separate quantities/);
 });
 test('v1.9 report screen is registered and company navigation includes it', async () => {
- const app = await read('../hysmart station_frontend/src/App.jsx');
- const layout = await read('../hysmart station_frontend/src/layouts/AppLayout.jsx');
+ const app = await read('../station_pwa/src/App.jsx');
+ const layout = await read('../station_pwa/src/layouts/AppLayout.jsx');
  assert.match(app, /path="reports" element={<ReportsPage \/>}/);
  assert.match(layout, /Financial reports/);
 });

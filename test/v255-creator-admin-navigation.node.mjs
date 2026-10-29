@@ -11,7 +11,7 @@ test('creator access endpoint is protected by active creator-admin middleware', 
  assert.match(route, /r\.get\('\/access'.*isCreatorAdmin:true/s);
 });
 test('frontend checks creator access, exposes creator navigation, and redirects creator from workspace overview', async () => {
- const layout = await read('../hysmart station_frontend/src/layouts/AppLayout.jsx');
+ const layout = await read('../station_pwa/src/layouts/AppLayout.jsx');
  assert.match(layout, /apiRequest\('\/creator\/access'/);
  assert.match(layout, /Creator Administrator/);
  assert.match(layout, /nav\('\/creator', \{ replace: true \}\)/);

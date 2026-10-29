@@ -6,8 +6,8 @@ import { fileURLToPath } from 'node:url';
 
 const testDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(testDir, '../..');
-const frontend = path.join(root, 'hysmart station_frontend');
-const backend = path.join(root, 'hysmart station_backend');
+const frontend = path.join(root, 'station_pwa');
+const backend = path.join(root, 'hysmart_station_backend');
 const read = (p) => readFile(p, 'utf8');
 
 async function walk(dir) {
