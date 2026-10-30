@@ -53,7 +53,7 @@ test('integration self-check never claims an external provider was contacted', (
 test('official stock positions use approved readings, verified deliveries and uncapped server aggregation', () => {
   const sql = read('supabase/migrations/0045_advanced_operations_pos_integrations.sql');
   const operations = read('src/routes/operations.js');
-  const inventory = read('../hysmart station_frontend/src/pages/InventoryPage.jsx');
+  const inventory = read('../station_pwa/src/pages/InventoryPage.jsx');
   assert.match(sql, /r\.status='approved'/);
   assert.match(sql, /left join public\.delivery_receipt_checks rc on rc\.delivery_id=d\.id/);
   assert.match(sql, /create or replace function public\.get_station_tank_stock_positions/);
@@ -63,7 +63,7 @@ test('official stock positions use approved readings, verified deliveries and un
 
 test('escalation worker and PWA safety rules are present', () => {
   const worker = read('src/workers/anomaly-escalation.js');
-  const sw = read('../hysmart station_frontend/public/sw.js');
+  const sw = read('../station_pwa/public/sw.js');
   assert.match(worker, /next_escalation_at/);
   assert.match(worker, /ANOMALY_CASE_ESCALATED/);
   assert.match(sw, /pathname\.startsWith\('\/api\/'\)/);

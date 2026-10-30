@@ -13,7 +13,7 @@ test('creator console is protected by database-managed creator admin records and
  const migration=await read('supabase/migrations/0049_database_managed_creator_admins.sql'); assert.match(migration,/create table if not exists public\.creator_admins/i); assert.match(migration,/enable row level security/i); assert.match(migration,/revoke all on table public\.creator_admins from anon, authenticated/i);
 });
 test('creator console route is mounted behind normal authentication and frontend provides dashboard route',async()=>{
- const app=await read('src/app.js'); const frontend=await read('../hysmart station_frontend/src/App.jsx'); const page=await read('../hysmart station_frontend/src/pages/CreatorDashboardPage.jsx');
+ const app=await read('src/app.js'); const frontend=await read('../station_pwa/src/App.jsx'); const page=await read('../station_pwa/src/pages/CreatorDashboardPage.jsx');
  assert.ok(app.includes("app.use('/api', authMiddleware(supabase))")); assert.ok(app.includes("app.use('/api/creator', creatorAdminRoutes(config))")); assert.ok(frontend.includes('CreatorDashboardPage')); assert.ok(frontend.includes('path="/creator"')); for(const token of ['Subscription payment flow','Customer complaints & requests','Reply to customer','Notify customer','Customer satisfaction'])assert.ok(page.includes(token),`missing ${token}`);
 });
 test('migration supports customer satisfaction ratings with range and comment constraints',async()=>{

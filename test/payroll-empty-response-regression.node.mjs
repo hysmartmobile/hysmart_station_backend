@@ -6,7 +6,7 @@ import { dirname, resolve } from 'node:path';
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
 test('payroll page normalizes missing API collections to arrays', () => {
-  const page = readFileSync(resolve(root, '../hysmart station_frontend/src/pages/PayrollPage.jsx'), 'utf8');
+  const page = readFileSync(resolve(root, '../station_pwa/src/pages/PayrollPage.jsx'), 'utf8');
   for (const key of ['stations', 'staff', 'payroll', 'expenses']) {
     assert.match(page, new RegExp(`Array\\.isArray\\(payload\\.${key}\\)`));
   }

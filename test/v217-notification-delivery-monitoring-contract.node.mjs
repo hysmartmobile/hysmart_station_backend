@@ -8,7 +8,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const route = await readFile(path.join(here, '../src/routes/notifications.js'), 'utf8');
 const worker = await readFile(path.join(here, '../src/workers/notification-delivery.js'), 'utf8');
 const migration = await readFile(path.join(here, '../supabase/migrations/0030_notification_delivery_monitoring.sql'), 'utf8');
-const frontend = await readFile(path.join(here, '../../hysmart station_frontend/src/pages/AlertsPage.jsx'), 'utf8');
+const frontend = await readFile(path.join(here, '../../station_pwa/src/pages/AlertsPage.jsx'), 'utf8');
 
 test('v2.17 exposes company/branch-scoped delivery status and worker freshness', () => {
   assert.match(route, /r\.get\('\/delivery-status'/);

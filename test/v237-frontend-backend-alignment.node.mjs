@@ -24,9 +24,9 @@ test('operational alert sales comparisons exclude pending and rejected meter rea
   assert.match(alerts, /from\('kg_nozzle_meter_readings'\)[^\n]*eq\('status', 'approved'\)/);
 });
 test('frontend exposes the same operational modules served by the backend', () => {
-  const app = read('../../hysmart station_frontend/src/App.jsx');
-  const controls = read('../../hysmart station_frontend/src/pages/ControlsPage.jsx');
-  const overview = read('../../hysmart station_frontend/src/pages/OverviewPage.jsx');
+  const app = read('../../station_pwa/src/App.jsx');
+  const controls = read('../../station_pwa/src/pages/ControlsPage.jsx');
+  const overview = read('../../station_pwa/src/pages/OverviewPage.jsx');
   assert.match(app, /path="team"/);
   assert.match(app, /path="attendance"/);
   assert.match(app, /path="controls"/);

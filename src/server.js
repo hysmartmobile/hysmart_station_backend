@@ -7,6 +7,9 @@ import { createApp } from './app.js';
 
 const SERVICE_NAME = 'hysmart-station-api';
 const SHUTDOWN_TIMEOUT_MS = 10_000;
+// Bind explicitly to 0.0.0.0 so Render / Fly / Docker always reach us
+// regardless of whether Node would have picked :: or 127.0.0.1 by default.
+const BIND_HOST = '0.0.0.0';
 
 let server;
 let shuttingDown = false;
@@ -75,7 +78,7 @@ async function start() {
     };
     server.once('error', onError);
     server.once('listening', onListening);
-    server.listen(port);
+    server.listen(port, BIND_HOST);
   });
 
   // Report subsequent listener/runtime errors instead of silently losing the API.
@@ -85,11 +88,17 @@ async function start() {
       message: error.message,
     });
     process.exitCode = 1;
-    if (server?.listening) void shutdown('server-error');
+    if (server?.listening) {
+      void shutdown('server-error');
+    } else {
+      // Nothing to drain — exit immediately rather than risk a hung loop.
+      process.exit(1);
+    }
   });
 
   const address = server.address();
   log('info', 'API server started successfully', {
+    host: BIND_HOST,
     port,
     address: address && typeof address === 'object' ? address.address : undefined,
     nodeVersion: process.version,
@@ -103,31 +112,46 @@ async function shutdown(reason) {
   shuttingDown = true;
   log('info', 'Graceful shutdown started', { reason });
 
-  if (!server?.listening) return;
+  // Nothing to drain — exit deterministically so Render doesn't SIGKILL us.
+  if (!server?.listening) {
+    process.exit(process.exitCode ?? 0);
+  }
 
   const timer = setTimeout(() => {
-    log('error', 'Graceful shutdown timed out; closing remaining HTTP connections.');
+    log('error', 'Graceful shutdown timed out; forcing process exit.');
     server.closeAllConnections?.();
-    process.exitCode = 1;
+    process.exit(1);
   }, SHUTDOWN_TIMEOUT_MS);
+  // Do not let the timer itself keep the process alive if server.close()
+  // finishes first and clears it.
   timer.unref();
 
   server.close((error) => {
     clearTimeout(timer);
     if (error) {
       log('error', 'HTTP server shutdown failed', { message: error.message });
-      process.exitCode = 1;
-      return;
+      process.exit(1);
     }
     log('info', 'Graceful shutdown completed');
+    // Exit explicitly. If process.exitCode was already 1 (e.g. server-error
+    // path), preserve it; otherwise exit 0.
+    process.exit(process.exitCode ?? 0);
   });
+  // Ask undici/keep-alive clients to release their sockets so close() can finish.
   server.closeIdleConnections?.();
 }
 
-process.once('SIGINT', () => void shutdown('SIGINT'));
-process.once('SIGTERM', () => void shutdown('SIGTERM'));
+process.once('SIGINT', () => {
+  void shutdown('SIGINT');
+});
+process.once('SIGTERM', () => {
+  void shutdown('SIGTERM');
+});
 
 // Monitor uncaught exceptions without overriding Node's default fatal behavior.
+// Node 15+ also re-emits unhandled promise rejections as uncaught exceptions
+// in the default `--unhandled-rejections=throw` mode, so this single monitor
+// covers both failure classes.
 process.on('uncaughtExceptionMonitor', (error, origin) => {
   log('error', 'Uncaught exception; Node.js will terminate the process', {
     origin,
@@ -142,5 +166,7 @@ start().catch((error) => {
     message: error.message,
     stack: error.stack,
   });
-  process.exitCode = 1;
+  // Exit explicitly. Relying on process.exitCode alone can hang if the
+  // Supabase client (or another dependency) has open handles.
+  process.exit(1);
 });

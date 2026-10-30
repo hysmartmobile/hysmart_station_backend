@@ -23,9 +23,9 @@ test('only owner may change currency and change is locked after first station', 
 });
 
 test('frontend exposes currency selection and formats company money dynamically', async () => {
-  const setup = await read('../hysmart station_frontend/src/pages/CompanySetupPage.jsx').catch(async () => read('../hysmart station_frontend/src/pages/CompanySetupPage.jsx'));
-  const settings = await read('../hysmart station_frontend/src/pages/CompanySettingsPage.jsx').catch(async () => read('../hysmart station_frontend/src/pages/CompanySettingsPage.jsx'));
-  const util = await read('../hysmart station_frontend/src/lib/currency.js').catch(async () => read('../hysmart station_frontend/src/lib/currency.js'));
+  const setup = await read('../station_pwa/src/pages/CompanySetupPage.jsx').catch(async () => read('../station_pwa/src/pages/CompanySetupPage.jsx'));
+  const settings = await read('../station_pwa/src/pages/CompanySettingsPage.jsx').catch(async () => read('../station_pwa/src/pages/CompanySettingsPage.jsx'));
+  const util = await read('../station_pwa/src/lib/currency.js').catch(async () => read('../station_pwa/src/lib/currency.js'));
   assert.match(setup, /company-currency/);
   assert.match(settings, /Save company currency/);
   assert.match(util, /Intl\.NumberFormat/);

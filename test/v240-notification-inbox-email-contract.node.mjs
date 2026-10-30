@@ -18,7 +18,7 @@ test('v2.4.0 adds persistent user-scoped inbox with read state and deduplication
 test('v2.4.0 wires notification centre and secure Resend worker configuration', () => {
   const app = read('../src/app.js');
   const worker = read('../src/workers/notification-delivery.js');
-  const layout = read('../../hysmart station_frontend/src/layouts/AppLayout.jsx');
+  const layout = read('../../station_pwa/src/layouts/AppLayout.jsx');
   const env = read('../.env.example');
   assert.match(app, /app\.use\('\/api\/notifications'/);
   assert.match(worker, /api\.resend\.com\/emails/);

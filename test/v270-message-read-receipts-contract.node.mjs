@@ -15,7 +15,7 @@ test('v2.7.0 adds grouped read receipt identifiers and server-only access', () =
   assert.match(route, /query\.in\('station_id', scope\.stations\.map/);
 });
 test('v2.7.0 frontend displays sent-message read receipts', () => {
-  const page = read('../../hysmart station_frontend/src/pages/MessagesPage.jsx');
+  const page = read('../../station_pwa/src/pages/MessagesPage.jsx');
   assert.match(page, /Message read receipts/);
   assert.match(page, /apiRequest\('\/messages\/sent'/);
   assert.match(page, /Not read yet/);

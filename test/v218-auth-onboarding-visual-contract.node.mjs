@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-const frontend = resolve(import.meta.dirname, '../../hysmart station_frontend');
+const frontend = resolve(import.meta.dirname, '../../station_pwa');
 const read = (path) => readFileSync(resolve(frontend, path), 'utf8');
 test('sign-in and sign-up keep auth flow and have a decorative station photo with fallback', () => {
   const page = read('src/pages/LoginPage.jsx');

@@ -23,7 +23,7 @@ test('v2.6.0 opted-in direct message recipients receive queued email copies with
   assert.match(route, /emailJobsQueued/);
 });
 test('v2.6.0 exposes an explicit email-copy preference in staff messaging UI', () => {
-  const layout = read('../../hysmart station_frontend/src/layouts/AppLayout.jsx');
+  const layout = read('../../station_pwa/src/layouts/AppLayout.jsx');
   assert.match(layout, /Email copies of staff messages/);
   assert.match(layout, /direct-message-email-preference/);
   assert.match(layout, /messages always appear here/);

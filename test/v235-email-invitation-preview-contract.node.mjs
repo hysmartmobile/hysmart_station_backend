@@ -8,8 +8,8 @@ const root = resolve(here, '../..');
 const read = path => readFileSync(resolve(root, path), 'utf8');
 
 test('invitation preview is public before auth and only exposes token-validated invitation details', () => {
-  const app = read('hysmart station_backend/src/app.js');
-  const route = read('hysmart station_backend/src/routes/publicInvitations.js');
+  const app = read('hysmart_station_backend/src/app.js');
+  const route = read('hysmart_station_backend/src/routes/publicInvitations.js');
   assert.ok(app.indexOf("publicInvitationRoutes(supabase)") < app.indexOf('authMiddleware(supabase)'));
   assert.match(route, /createHash\('sha256'\)/);
   assert.match(route, /\.eq\('token_hash', hash\(token\)\)/);
@@ -22,7 +22,7 @@ test('invitation preview is public before auth and only exposes token-validated 
 });
 
 test('invite registration displays server-validated company, branch, role and fixed invite email', () => {
-  const page = read('hysmart station_frontend/src/pages/InvitePage.jsx');
+  const page = read('station_pwa/src/pages/InvitePage.jsx');
   assert.match(page, /\/invitations\/preview\?token=/);
   assert.match(page, /preview\.companyName/);
   assert.match(page, /preview\.stationName/);
@@ -36,7 +36,7 @@ test('invite registration displays server-validated company, branch, role and fi
 });
 
 test('invite page blocks registration until the invitation has been validated', () => {
-  const page = read('hysmart station_frontend/src/pages/InvitePage.jsx');
+  const page = read('station_pwa/src/pages/InvitePage.jsx');
   assert.match(page, /!preview \|\| previewError/);
   assert.match(page, /preview && !previewLoading && <form/);
   assert.match(page, /You are signed in with a different email/);

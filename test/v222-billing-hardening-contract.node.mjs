@@ -7,7 +7,7 @@ const billing = await readFile(new URL('src/routes/billing.js', root), 'utf8');
 const gate = await readFile(new URL('src/middleware/subscriptionAccess.js', root), 'utf8');
 const me = await readFile(new URL('src/routes/me.js', root), 'utf8');
 const migration = await readFile(new URL('supabase/migrations/0031_billing_idempotency_and_entitlement_hardening.sql', root), 'utf8');
-const frontend = await readFile(new URL('../../hysmart station_frontend/src/pages/BillingPage.jsx', import.meta.url), 'utf8');
+const frontend = await readFile(new URL('../../station_pwa/src/pages/BillingPage.jsx', import.meta.url), 'utf8');
 
 test('checkout attempt exists before provider checkout can return a callback', () => {
   assert.ok(billing.indexOf("from('company_payment_attempts').insert") < billing.indexOf("fetch('https://api.paystack.co/transaction/initialize'"));

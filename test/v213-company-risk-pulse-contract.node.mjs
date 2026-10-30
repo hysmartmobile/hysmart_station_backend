@@ -4,8 +4,8 @@ import { readFile } from 'node:fs/promises';
 const root = new URL('../', import.meta.url);
 const read = path => readFile(new URL(path, root), 'utf8');
 test('v2.13 company risk pulse is owner overview only and uses the bounded financial report API', async () => {
- const overview = await read('../hysmart station_frontend/src/pages/OverviewPage.jsx');
- const pulse = await read('../hysmart station_frontend/src/pages/CompanyRiskPulse.jsx');
+ const overview = await read('../station_pwa/src/pages/OverviewPage.jsx');
+ const pulse = await read('../station_pwa/src/pages/CompanyRiskPulse.jsx');
  assert.match(overview, /CompanyRiskPulse/);
  assert.match(overview, /owner \? <>/);
  assert.match(pulse, /companies\/financial-report/);

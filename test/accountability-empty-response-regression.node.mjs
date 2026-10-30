@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 const here=path.dirname(fileURLToPath(import.meta.url));
-const frontend=await readFile(path.resolve(here,'../../hysmart station_frontend/src/pages/AccountabilityPage.jsx'),'utf8');
+const frontend=await readFile(path.resolve(here,'../../station_pwa/src/pages/AccountabilityPage.jsx'),'utf8');
 const backend=await readFile(path.resolve(here,'../src/routes/accountability.js'),'utf8');
 test('accountability frontend normalizes every collection before filtering',()=>{
  for(const key of ['stations','staff','companyLeaders','transactions']) {

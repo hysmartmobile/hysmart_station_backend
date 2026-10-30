@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const route = readFileSync(new URL('../src/routes/operations.js', import.meta.url), 'utf8');
-const page = readFileSync(new URL('../../hysmart station_frontend/src/pages/ReportsPage.jsx', import.meta.url), 'utf8');
+const page = readFileSync(new URL('../../station_pwa/src/pages/ReportsPage.jsx', import.meta.url), 'utf8');
 test('branch statement endpoint filters every transaction source by selected date range', () => {
   assert.match(route, /statement-transactions/);
   assert.match(route, /\.gte\(dateColumn,startInclusive\)\.lt\(dateColumn,endExclusive\)/);

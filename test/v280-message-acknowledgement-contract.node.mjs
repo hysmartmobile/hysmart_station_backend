@@ -16,10 +16,10 @@ test('v2.8.0 adds optional acknowledgement storage with server-mediated access',
   assert.match(notifications, /eq\('requires_acknowledgement', true\)/);
 });
 test('v2.8.0 UI supports requesting and completing acknowledgements', () => {
-  const page = read('../../hysmart station_frontend/src/pages/MessagesPage.jsx');
+  const page = read('../../station_pwa/src/pages/MessagesPage.jsx');
   assert.match(page, /Require staff acknowledgement/);
   assert.match(page, /acknowledgedCount/);
-  const layout = read('../../hysmart station_frontend/src/layouts/AppLayout.jsx');
+  const layout = read('../../station_pwa/src/layouts/AppLayout.jsx');
   assert.match(layout, /Acknowledge instruction/);
   assert.match(layout, /notifications\/inbox\/\$\{item\.id\}\/acknowledge/);
 });

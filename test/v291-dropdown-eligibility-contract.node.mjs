@@ -8,7 +8,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const source = (relative) => readFileSync(resolve(here, relative), 'utf8');
 
 test('sales selectors use real eligible records and explain empty states instead of dummy options', () => {
-  const page = source('../../hysmart station_frontend/src/pages/SalesPage.jsx');
+  const page = source('../../station_pwa/src/pages/SalesPage.jsx');
   assert.match(page, /activeLitreNozzles=nozzles\.filter/);
   assert.match(page, /activeKgNozzles=nozzles\.filter/);
   assert.match(page, /approvedLitreReadings=\(data\?\.nozzle_meter_readings\|\|\[\]\)\.filter\(r=>r\.status==='approved'&&!!openShiftId&&r\.cash_shift_id===openShiftId\)/);
@@ -22,7 +22,7 @@ test('sales selectors use real eligible records and explain empty states instead
 });
 
 test('shift-opening selectors explain missing shifts and nozzles without inventing selectable records', () => {
-  const page = source('../../hysmart station_frontend/src/pages/ShiftOpeningWorkflow.jsx');
+  const page = source('../../station_pwa/src/pages/ShiftOpeningWorkflow.jsx');
   assert.match(page, /Open a cashier shift in Tank & cash controls first/);
   assert.match(page, /No eligible active nozzle is configured for this station\/shift/);
   assert.match(page, /No open cashier shifts available at this station/);

@@ -24,6 +24,6 @@ test('profit and loss only uses approved meter readings and approved expenses',(
  assert.match(route,/moving weighted-average inventory cost/);
 });
 test('reports UI exposes daily weekly monthly yearly periods and labels profit coverage honestly',()=>{
- const page=read('../hysmart station_frontend/src/pages/ReportsPage.jsx');
+ const page=read('../station_pwa/src/pages/ReportsPage.jsx');
  for(const label of ['Today','This week','This month','This year','Trading profit & loss','Missing opening cost','Trading loss alert','Gross trading loss alert']) assert.ok(page.includes(label),`missing ${label}`);
 });

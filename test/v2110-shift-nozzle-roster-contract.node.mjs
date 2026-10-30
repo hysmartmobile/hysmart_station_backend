@@ -7,7 +7,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const migration=fs.readFileSync(path.join(root,'supabase/migrations/0027_shift_nozzle_roster_readiness.sql'),'utf8');
 const routes=fs.readFileSync(path.join(root,'src/routes/operations.js'),'utf8');
 const controls=fs.readFileSync(path.join(root,'src/routes/controls.js'),'utf8');
-const ui=fs.readFileSync(path.resolve(root,'../hysmart station_frontend/src/pages/ShiftOpeningWorkflow.jsx'),'utf8');
+const ui=fs.readFileSync(path.resolve(root,'../station_pwa/src/pages/ShiftOpeningWorkflow.jsx'),'utf8');
 test('shift nozzle roster is branch-bound, shift-bound, and manager-configured atomically',()=>{
  assert.match(migration,/create table if not exists public\.shift_nozzle_roster/);
  assert.match(migration,/set_shift_nozzle_roster/);

@@ -8,7 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const read = (p) => readFile(path.join(root, p), 'utf8');
 
 test('forgot-password submits a Supabase recovery email with the correct public callback route', async () => {
-  const login = await read('hysmart station_frontend/src/pages/LoginPage.jsx');
+  const login = await read('station_pwa/src/pages/LoginPage.jsx');
   assert.match(login, /resetPasswordForEmail\(email\.trim\(\),\s*\{\s*redirectTo\s*\}\)/);
   assert.match(login, /\$\{window\.location\.origin\}\/reset-password/);
   assert.match(login, /If an account exists for this email/);
@@ -16,7 +16,7 @@ test('forgot-password submits a Supabase recovery email with the correct public 
 });
 
 test('reset page validates confirmation and updates password only with an authenticated Supabase session', async () => {
-  const page = await read('hysmart station_frontend/src/pages/ResetPasswordPage.jsx');
+  const page = await read('station_pwa/src/pages/ResetPasswordPage.jsx');
   assert.match(page, /if \(!session \|\| !recoveryMode\)/);
   assert.match(page, /const \{ session, loading, configured, signOut, recoveryMode \} = useAuth\(\)/);
   assert.match(page, /password !== confirm/);
@@ -24,14 +24,14 @@ test('reset page validates confirmation and updates password only with an authen
   assert.match(page, /supabase\.auth\.updateUser\(\{ password \}\)/);
   assert.match(page, /await signOut\(\)/);
   assert.match(page, /expired/i);
-  const auth = await read('hysmart station_frontend/src/features/auth/AuthContext.jsx');
+  const auth = await read('station_pwa/src/features/auth/AuthContext.jsx');
   assert.match(auth, /_event === 'PASSWORD_RECOVERY'/);
   assert.match(auth, /sessionStorage\.setItem\('hysmart-password-recovery', 'true'\)/);
   assert.match(auth, /sessionStorage\.removeItem\('hysmart-password-recovery'\)/);
 });
 
 test('authenticated account password change re-verifies the current password first', async () => {
-  const page = await read('hysmart station_frontend/src/pages/AccountSecurityPage.jsx');
+  const page = await read('station_pwa/src/pages/AccountSecurityPage.jsx');
   assert.ok(page.indexOf('signInWithPassword') < page.indexOf('updateUser'), 'current password must be verified before updateUser');
   assert.match(page, /current === next/);
   assert.match(page, /next !== confirm/);
@@ -39,8 +39,8 @@ test('authenticated account password change re-verifies the current password fir
 });
 
 test('password recovery routes are registered and account security is available to every sidebar role', async () => {
-  const app = await read('hysmart station_frontend/src/App.jsx');
-  const layout = await read('hysmart station_frontend/src/layouts/AppLayout.jsx');
+  const app = await read('station_pwa/src/App.jsx');
+  const layout = await read('station_pwa/src/layouts/AppLayout.jsx');
   assert.match(app, /path="\/reset-password" element={<ResetPasswordPage \/>}/);
   assert.match(app, /path="account-security" element={<AccountSecurityPage \/>}/);
   assert.match(layout, /\['\/account-security', 'Account security', KeyRound\]/);

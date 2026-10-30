@@ -5,10 +5,10 @@ const root = new URL('../', import.meta.url);
 const migration = readFileSync(new URL('supabase/migrations/0017_kg_adjustments_and_collection_reversals.sql', root), 'utf8');
 const controls = readFileSync(new URL('src/routes/controls.js', root), 'utf8');
 const governance = readFileSync(new URL('src/routes/governance.js', root), 'utf8');
-const sales = readFileSync(new URL('../../hysmart station_frontend/src/pages/SalesPage.jsx', import.meta.url), 'utf8');
+const sales = readFileSync(new URL('../../station_pwa/src/pages/SalesPage.jsx', import.meta.url), 'utf8');
 const operations = readFileSync(new URL('src/routes/operations.js', root), 'utf8');
-const controlUi = readFileSync(new URL('../../hysmart station_frontend/src/pages/ControlsPage.jsx', import.meta.url), 'utf8');
-const governanceUi = readFileSync(new URL('../../hysmart station_frontend/src/pages/GovernancePage.jsx', import.meta.url), 'utf8');
+const controlUi = readFileSync(new URL('../../station_pwa/src/pages/ControlsPage.jsx', import.meta.url), 'utf8');
+const governanceUi = readFileSync(new URL('../../station_pwa/src/pages/GovernancePage.jsx', import.meta.url), 'utf8');
 test('kilogram stock adjustments are owner-approved, unit-separated and capacity/negative-stock checked', () => {
   assert.match(migration, /create table if not exists public\.kg_stock_adjustment_requests/);
   assert.match(migration, /create table if not exists public\.kg_tank_stock_movements/);

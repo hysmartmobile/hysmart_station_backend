@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-const source = readFileSync(new URL('../../hysmart station_frontend/src/pages/ReportsPage.jsx', import.meta.url), 'utf8');
+const source = readFileSync(new URL('../../station_pwa/src/pages/ReportsPage.jsx', import.meta.url), 'utf8');
 test('branch PDF/print statements include company letterhead and report options', () => {
   assert.match(source, /HYSMART STATION/);
   assert.match(source, /Branch Transaction Account Statement/);

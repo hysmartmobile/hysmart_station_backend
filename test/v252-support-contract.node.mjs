@@ -17,9 +17,9 @@ test('support migration has RLS policies, indexes, seed FAQs and explicit repres
  assert.match(sql,/created_by = auth\.uid\(\)/);
 });
 test('support centre is routed and included in role-aware navigation',async()=>{
- const app=await read('../hysmart station_frontend/src/App.jsx');
- const layout=await read('../hysmart station_frontend/src/layouts/AppLayout.jsx');
- const page=await read('../hysmart station_frontend/src/pages/SupportPage.jsx');
+ const app=await read('../station_pwa/src/App.jsx');
+ const layout=await read('../station_pwa/src/layouts/AppLayout.jsx');
+ const page=await read('../station_pwa/src/pages/SupportPage.jsx');
  assert.ok(app.includes("path=\"support\" element={<SupportPage />}"));
  assert.ok(layout.includes("['/support', 'Support & FAQs', LifeBuoy]"));
  for(const token of ['Search setup, billing, sales, inventory','Submit ticket','My tickets','Send reply']) assert.ok(page.includes(token),`missing UI text ${token}`);

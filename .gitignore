@@ -7,6 +7,11 @@ node_modules/
 .pnp/
 .pnp.js
 
+
+.env
+.env.*
+!.env.example
+node_modules
 # ==========================================
 # Environment variables and secrets
 # ==========================================
